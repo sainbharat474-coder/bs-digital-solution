@@ -1,0 +1,48 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 // Smooth Scroll\
+document.querySelectorAll('nav a').forEach(link=>\{\
+    link.addEventListener('click',function(e)\{\
+        e.preventDefault();\
+        const id=this.getAttribute('href');\
+        if(id!=="#")\{\
+            document.querySelector(id).scrollIntoView(\{\
+                behavior:'smooth'\
+            \});\
+        \}\
+    \});\
+\});\
+\
+// Header Shadow\
+window.addEventListener('scroll',()=>\{\
+    const header=document.querySelector('header');\
+    if(window.scrollY>50)\{\
+        header.style.background="#000";\
+        header.style.boxShadow="0 5px 20px rgba(0,0,0,.5)";\
+    \}else\{\
+        header.style.background="#111";\
+        header.style.boxShadow="none";\
+    \}\
+\});\
+\
+// Reveal Animation\
+const observer=new IntersectionObserver(entries=>\{\
+    entries.forEach(entry=>\{\
+        if(entry.isIntersecting)\{\
+            entry.target.style.opacity="1";\
+            entry.target.style.transform="translateY(0)";\
+        \}\
+    \});\
+\});\
+\
+document.querySelectorAll("section,.card").forEach(el=>\{\
+    el.style.opacity="0";\
+    el.style.transform="translateY(50px)";\
+    el.style.transition="1s";\
+    observer.observe(el);\
+\});}
